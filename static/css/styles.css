@@ -11,7 +11,7 @@
     align-items: center;
     clear: both;
 }
-.loginCont{
+.homeCont{
     flex:2;
     clear: both;
     display: flex;

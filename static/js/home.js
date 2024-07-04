@@ -1,9 +1,9 @@
 
 $(document).ready(function () {
-    $("#submitBtn").click(onClickLogin);
+    $("#submitBtn").click(onClickSubmit);
 });
 
-function onClickLogin() {
+function onClickSubmit() {
     var country = document.getElementById("ctyInput").value;
     var duration = document.getElementById("durInput").value;
     var style = document.getElementById("stInput").value;
