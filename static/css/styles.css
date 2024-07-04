@@ -1,49 +1,56 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
 .wrapper {
-    display: flex;
-    flex-direction: column;
-    width: 400px;
-    height: 600px;
-    border: 2px solid black;
-}
-.titleCont{
-    display: flex;
-    flex:2;
-    align-items: center;
-    clear: both;
-}
-.homeCont{
-    flex:2;
-    clear: both;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-}
-.fitCont{
-    flex:1;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
 }
 
-.title{
+.titleCont {
     text-align: center;
-    color: #4CAF50;
-    flex:1;
-}
-#ctyInput, #durInput, #stInput{
-    flex:1;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
     margin-bottom: 20px;
-    border: 2px solid #4CAF50;
-    padding-left: 15px;
-    width: 70%;
 }
-#submitBtn{
-    flex:1;
-    width: 75%;
-    background-color: #4CAF50;
-    margin-bottom: 20px;
 
-    margin-left: auto;
-    margin-right: auto;
+.title {
+    font-size: 2em;
+    color: #333;
+}
+
+.homeCont {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.inputField {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.submitButton {
+    padding: 10px;
+    font-size: 1em;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+    background-color: #0056b3;
 }

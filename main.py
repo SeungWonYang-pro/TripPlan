@@ -1,4 +1,4 @@
-GOOGLE_API_KEY="APIKEY"
+GOOGLE_API_KEY="API_KEY"
 import bs4
 from operator import itemgetter
 from langchain import hub
