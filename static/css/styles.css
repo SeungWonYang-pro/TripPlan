@@ -1,0 +1,49 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 600px;
+    border: 2px solid black;
+}
+.titleCont{
+    display: flex;
+    flex:2;
+    align-items: center;
+    clear: both;
+}
+.loginCont{
+    flex:2;
+    clear: both;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.fitCont{
+    flex:1;
+}
+
+.title{
+    text-align: center;
+    color: #4CAF50;
+    flex:1;
+}
+#ctyInput, #durInput, #stInput{
+    flex:1;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    border: 2px solid #4CAF50;
+    padding-left: 15px;
+    width: 70%;
+}
+#submitBtn{
+    flex:1;
+    width: 75%;
+    background-color: #4CAF50;
+    margin-bottom: 20px;
+
+    margin-left: auto;
+    margin-right: auto;
+}
