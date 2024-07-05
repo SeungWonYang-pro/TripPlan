@@ -50,8 +50,8 @@ def makePlan(response: Response, data: InfoSchema):
     country= data.country
     duration= data.duration
     style = data.style
-    query =  "I want to go to " + country +". And I'm interesting in " + style + " Can you make some plan for "+duration+" days? "
-
+    query =  "I want to go to "+country+" for " + duration + " days.  I am interested in "+ style +". Please provide a detailed day-by-day itinerary without any comments."
+    print(query)
     plans =  getPlan(query)
     return {'plan': plans}
 

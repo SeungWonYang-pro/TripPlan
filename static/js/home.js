@@ -3,9 +3,12 @@ $(document).ready(function () {
     $("#submitBtn").click(onClickSubmit);
 });
 
+duration = 0;
+checkStart = false;
+
 function onClickSubmit() {
     var country = document.getElementById("ctyInput").value;
-    var duration = document.getElementById("durInput").value;
+    duration = document.getElementById("durInput").value;
     var style = document.getElementById("stInput").value;
     //로그인 기능
     if (country && duration && style) {
@@ -27,12 +30,20 @@ function onClickSubmit() {
 
 }
 
+
 function printIt(plans) {
     const plansContainer = $('#plansContainer');
     plansContainer.empty();  // Clear previous plans if any
 
+    checkStart = plans['plan'].toString().startsWith('Day');
+    
+
     const itinerary = parseItinerary(plans['plan']);
-    itinerary.shift();
+    if (!checkStart) {
+        itinerary.shift();
+
+    }
+
     itinerary.forEach(dayPlan => {
         const planItem = $('<div class="planItem"></div>').html(dayPlan);
         plansContainer.append(planItem);
@@ -45,8 +56,27 @@ function parseItinerary(paragraph) {
     const dayMatches = paragraph.match(dayPattern);
 
     return days.map((day, index) => {
-        if (index != 0) {
-            return `<h3>${dayMatches[index - 1]}</h3><ul>${day.split('\n').filter(line => line.trim().startsWith('*')).map(line => `<li>${line.substring(1).trim()}</li>`).join('')}</ul>`;
+        if (checkStart) {
+            if (index < duration - 1) {
+                return `<h3>${dayMatches[index]}</h3><ul>${day.split('\n').filter(line => line.trim().startsWith('*')).map(line => `<li>${line.substring(1).trim()}</li>`).join('')}</ul>`;
+
+            }
+            else if (index == duration - 1) {
+                return `<h3>${dayMatches[index]}</h3><ul>${day.split("\n\nT")[0].split('\n').filter(line => line.trim().startsWith('*')).map(line => `<li>${line.substring(1).trim()}</li>`).join('')}</ul>`;
+            }
+        }
+        else {
+            if (index != 0 && index <= duration) {
+                if (index == duration) {
+                    return `<h3>${dayMatches[index - 1]}</h3><ul>${day.split("\n\nT")[0].split('\n').filter(line => line.trim().startsWith('*')).map(line => `<li>${line.substring(1).trim()}</li>`).join('')}</ul>`;
+
+                }
+                else {
+                    return `<h3>${dayMatches[index - 1]}</h3><ul>${day.split('\n').filter(line => line.trim().startsWith('*')).map(line => `<li>${line.substring(1).trim()}</li>`).join('')}</ul>`;
+
+                }
+            }
+
         }
     });
 }
