@@ -54,3 +54,30 @@ body {
 .submitButton:hover {
     background-color: #0056b3;
 }
+
+.plansContainer {
+    margin-top: 20px;
+    max-height: 400px;  /* Adjust height as needed */
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #fafafa;
+}
+
+.planItem {
+    background: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.planItem h3 {
+    margin-top: 0;
+}
+
+.planItem ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
