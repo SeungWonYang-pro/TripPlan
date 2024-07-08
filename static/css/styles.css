@@ -58,11 +58,20 @@ body {
 .plansContainer {
     margin-top: 20px;
     max-height: 400px;  /* Adjust height as needed */
-    overflow-y: auto;
+    overflow-y: auto;   /* Enable vertical scrolling */
     border: 1px solid #ddd;
     padding: 10px;
     border-radius: 4px;
     background-color: #fafafa;
+
+    /* Hide scrollbar */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+
+/* Hide scrollbar for WebKit (Chrome, Safari, Edge) */
+.plansContainer::-webkit-scrollbar {
+    display: none;
 }
 
 .planItem {

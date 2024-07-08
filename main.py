@@ -78,7 +78,7 @@ def getPlan(query):
     )
 
 
-    # Generate
+    # Generate Plans
     llm = ChatGooglePalm(google_api_key=GOOGLE_API_KEY)
 
     def format_docs(docs):
