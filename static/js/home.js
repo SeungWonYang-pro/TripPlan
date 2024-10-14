@@ -43,15 +43,17 @@ function printIt(plans) {
         itinerary.shift();
 
     }
-
+    console.log(itinerary);
     itinerary.forEach(dayPlan => {
         dayPlan = dayPlan.replace(/\*/g, "");
-        dayPlan = dayPlan.replace(/:/g, ':</br>');
+        dayPlan = dayPlan.replace(/:/, ':</br>');
 
+        if (dayPlan != "") {
+            const planItem = $('<div class="planItem"></div>').html(dayPlan);
+            if (dayPlan.toString() != "*") {
+                plansContainer.append(planItem);
+            }
 
-        const planItem = $('<div class="planItem"></div>').html(dayPlan);
-        if (dayPlan.toString() != "*") {
-            plansContainer.append(planItem);
         }
     });
 }
