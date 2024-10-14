@@ -11,7 +11,8 @@ from langchain.schema.runnable import RunnablePassthrough
 from langchain.chat_models import ChatGooglePalm
 from langchain.schema.runnable.history import RunnableWithMessageHistory
 from langchain.prompts import ChatPromptTemplate,SystemMessagePromptTemplate,HumanMessagePromptTemplate
-
+import os
+os.environ["OPENAI_PROXY"] = "http://127.0.0.1:8000"
 from fastapi import FastAPI, Depends, Request, Response, WebSocket
 from fastapi.staticfiles import StaticFiles 
 from fastapi.responses import FileResponse, HTMLResponse
@@ -50,63 +51,15 @@ def makePlan(response: Response, data: InfoSchema):
     country= data.country
     duration= data.duration
     style = data.style
-    query =  "I want to go to "+country+" for " + duration + " days.  I am interested in "+ style +". Please provide a detailed day-by-day itinerary without any comments."
+    query =  "I want to go to "+country+" for " + duration + " days.  I am interested in "+ style +". Please provide a detailed day-by-day itinerary without any bonuses, tips and Note."
     print(query)
     plans =  getPlan(query)
     return {'plan': plans}
 
 def getPlan(query):
-    loader = WebBaseLoader(web_paths=("https://lilianweng.github.io/posts/2023-06-23-agent/",), bs_kwargs=dict(parse_only=bs4.SoupStrainer(class_=("post-content", "post-title", "post-header"))),)
-    raw_documents = loader.load()
-    # Text Split
-    text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=800,
-        chunk_overlap=100
-    )
-    splits = text_splitter.split_documents(raw_documents)
-
-    # Embedding
-    vectorstore = Chroma.from_documents(
-        documents=splits,
-        embedding=GooglePalmEmbeddings(google_api_key=GOOGLE_API_KEY)
-    )
-
-    # Retriever
-    retriever = vectorstore.as_retriever(
-        search_type="similarity",
-        search_kwargs={"k":6}
-    )
-
-
-    # Generate Plans
-    llm = ChatGooglePalm(google_api_key=GOOGLE_API_KEY)
-
-    def format_docs(docs):
-        return "\n\n".join(doc.page_content for doc in docs)
-
-    from langchain.prompts import (ChatPromptTemplate,SystemMessagePromptTemplate,HumanMessagePromptTemplate)
-    prompt = ChatPromptTemplate(
-    messages=[
-        SystemMessagePromptTemplate.from_template(
-            "You are a great chatbot planning detail things that client needs with some urls for making some reservation or getting information."
-    ),
-        HumanMessagePromptTemplate.from_template("{question}")
-        ]
-    )
-
-    rag_chain = (
-        {
-            "context": retriever | format_docs,
-            "question": RunnablePassthrough()    }
-        | prompt
-        | llm
-        | StrOutputParser()
-    )
-    # ===========================================
-
-    print("## Generated string ##")
-    plans = []
-    for chunk in rag_chain.stream(query):
-        plans.append(str(chunk))
+    import google.generativeai as genai
+    genai.configure(api_key=GOOGLE_API_KEY)
+    model = genai.GenerativeModel("gemini-1.5-flash")
+    plans = model.generate_content(query).candidates[0].content.parts[0].text
     return plans
 

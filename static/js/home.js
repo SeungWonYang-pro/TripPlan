@@ -34,9 +34,9 @@ function onClickSubmit() {
 function printIt(plans) {
     const plansContainer = $('#plansContainer');
     plansContainer.empty();  // Clear previous plans if any
-
+    console.log(plans);
     checkStart = plans['plan'].toString().startsWith('Day');
-    
+
 
     const itinerary = parseItinerary(plans['plan']);
     if (!checkStart) {
@@ -45,8 +45,14 @@ function printIt(plans) {
     }
 
     itinerary.forEach(dayPlan => {
+        dayPlan = dayPlan.replace(/\*/g, "");
+        dayPlan = dayPlan.replace(/:/g, ':</br>');
+
+
         const planItem = $('<div class="planItem"></div>').html(dayPlan);
-        plansContainer.append(planItem);
+        if (dayPlan.toString() != "*") {
+            plansContainer.append(planItem);
+        }
     });
 }
 function parseItinerary(paragraph) {
