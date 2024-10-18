@@ -10,7 +10,6 @@ function onClickSubmit() {
     var country = document.getElementById("ctyInput").value;
     duration = document.getElementById("durInput").value;
     var style = document.getElementById("stInput").value;
-    //로그인 기능
     if (country && duration && style) {
         var data = { "country": country, "duration": duration, "style": style };
 
